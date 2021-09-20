@@ -1,13 +1,12 @@
 import { Dispatch } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useCustomerApi } from '../apis';
-import { CustomerAction, RootState } from '../app-types';
 import { Customer } from '../interfaces';
+import { CustomerAction, RootState } from '../app-types';
 import { handleAxiosApi, getResponseErrorMessage } from '../utils/functions';
+import { useCustomerApi } from '../apis';
+import { useDispatch } from 'react-redux';
 
 export const useCustomerRepository = () => {
   const dispatch = useDispatch<Dispatch<CustomerAction>>();
-  const customerState = useSelector((state: RootState) => state.customerState);
   const customerApi = useCustomerApi();
 
   const list = async () => {
@@ -58,11 +57,13 @@ export const useCustomerRepository = () => {
     }
   };
 
+  const getCustomerState = (state: RootState) => state.customerState;
+
   return {
     list,
     create,
     update,
     remove,
-    ...customerState,
+    getCustomerState,
   };
 };

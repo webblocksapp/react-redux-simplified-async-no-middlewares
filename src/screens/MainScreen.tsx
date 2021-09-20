@@ -8,9 +8,11 @@ import CustomerCard from '../components/CustomerCard';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
+import { useSelector } from 'react-redux';
 
 const MainScreen: React.FC = () => {
   const customerRepository = useCustomerRepository();
+  const customerState = useSelector(customerRepository.getCustomerState);
 
   useEffect(() => {
     customerRepository.list();
@@ -18,21 +20,21 @@ const MainScreen: React.FC = () => {
 
   return (
     <>
-      {customerRepository.updating && <Alert severity="info">A record is being updated</Alert>}
-      {customerRepository.removing && <Alert severity="info">A record is being deleted</Alert>}
-      {customerRepository.error && <Alert severity="error">{customerRepository.error}</Alert>}
+      {customerState.updating && <Alert severity="info">A record is being updated</Alert>}
+      {customerState.removing && <Alert severity="info">A record is being deleted</Alert>}
+      {customerState.error && <Alert severity="error">{customerState.error}</Alert>}
 
       <br />
-      {customerRepository.listing ? (
+      {customerState.listing ? (
         <Typography variant="body1">Listing...</Typography>
       ) : (
         <Grid container spacing={2}>
-          {customerRepository.customers.map((customer: any, index: any) => (
+          {customerState.customers.map((customer: any, index: any) => (
             <Grid key={index} item xs={12} md={4}>
               <CustomerCard customer={customer} />
             </Grid>
           ))}
-          {customerRepository.creating && (
+          {customerState.creating && (
             <Grid item xs={12} md={4}>
               <CardSkeleton />
             </Grid>
