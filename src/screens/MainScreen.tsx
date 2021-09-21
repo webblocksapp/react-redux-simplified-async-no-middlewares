@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 import { useSelector } from 'react-redux';
+import { Customer } from '../interfaces';
 
 const MainScreen: React.FC = () => {
   const customerRepository = useCustomerRepository();
@@ -29,7 +30,7 @@ const MainScreen: React.FC = () => {
         <Typography variant="body1">Listing...</Typography>
       ) : (
         <Grid container spacing={2}>
-          {customerState.customers.map((customer: any, index: any) => (
+          {customerState.customers.map((customer: Customer, index: number) => (
             <Grid key={index} item xs={12} md={4}>
               <CustomerCard customer={customer} />
             </Grid>
