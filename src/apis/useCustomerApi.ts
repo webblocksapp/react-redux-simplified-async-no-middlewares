@@ -4,7 +4,7 @@ import { Customer } from '../interfaces';
 const baseApi = process.env.REACT_APP_BASE_API;
 
 export const useCustomerApi = () => {
-  const list = (): Promise<AxiosResponse<Customer>> => {
+  const list = (): Promise<AxiosResponse<Customer[]>> => {
     return axios.get(`${baseApi}/customers`);
   };
 
